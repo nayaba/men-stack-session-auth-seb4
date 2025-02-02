@@ -1,5 +1,5 @@
 const signUp = (req, res) => {
-    res.send('sign up')
+    res.render('auth/sign-up.ejs', {title: 'Sign up'} )
 }
 
 module.exports = {
