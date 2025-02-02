@@ -16,6 +16,13 @@ mongoose.connection.on('connected', () => {
     console.log(`Connected to MongoDB ${mongoose.connection.name}`)
 })
 
+
+// CONTROLLERS
+const pagesCtrl = require('./controllers/pages')
+
+// ROUTE HANDLERS
+app.get('/', pagesCtrl.home)
+
 app.listen(port, () => {
     console.log(`The express app is ready on port ${port}`)
 })
