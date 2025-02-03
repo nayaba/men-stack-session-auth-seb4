@@ -7,5 +7,5 @@ const welcome = (req, res) => {
 }
 
 module.exports = {
-    welcome
+    welcome,
 }
