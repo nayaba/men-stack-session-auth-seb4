@@ -2,6 +2,9 @@ body {
     background-color: pink;
     margin: 0px;
     text-align: center;
+}
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
