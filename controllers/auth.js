@@ -29,7 +29,40 @@ const addUser = async (req, res) => {
     return res.send(`Thanks for signing up ${user.username}`)
 }
 
+const signInForm = (req, res) => {
+    res.render('auth/sign-in.ejs', {
+        title: 'Sign in',
+        msg: ''
+    })
+}
+
+const signIn = async (req, res) => {
+    console.log('req.body: ', req.body)
+    const userInDatabase = await User.findOne({ username: req.body.username })
+    console.log('userInDatabase: ', userInDatabase)
+    if (!userInDatabase) {
+        return res.render('auth/sign-in.ejs', {
+            title: 'Sign in',
+            msg: 'Invalid credentials. Please try again.'
+        })
+    }
+    // CHECKING IF PASSWORD IS CORRECT
+    const validPassword = bcrypt.compareSync(
+        req.body.password,
+        userInDatabase.password
+    )
+    if (!validPassword) {
+        return res.render('auth/sign-in.ejs', {
+            title: 'Sign in',
+            msg: 'Invalid credentials. Please try again.'
+        })
+    }
+
+}
+
 module.exports = {
     signUp,
     addUser,
+    signInForm,
+    signIn,
 }
