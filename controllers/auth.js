@@ -37,9 +37,7 @@ const signInForm = (req, res) => {
 }
 
 const signIn = async (req, res) => {
-    console.log('req.body: ', req.body)
     const userInDatabase = await User.findOne({ username: req.body.username })
-    console.log('userInDatabase: ', userInDatabase)
     if (!userInDatabase) {
         return res.render('auth/sign-in.ejs', {
             title: 'Sign in',
@@ -57,6 +55,13 @@ const signIn = async (req, res) => {
             msg: 'Invalid credentials. Please try again.'
         })
     }
+
+    req.session.user = {
+        username: userInDatabase.username,
+    }
+    console.log('req.session: ', req.session)
+
+    res.redirect('/')
 
 }
 

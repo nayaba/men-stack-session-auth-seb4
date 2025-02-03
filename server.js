@@ -3,6 +3,7 @@ require('dotenv').config()
 // dotenv.config()
 const express = require('express')
 const app = express()
+const session = require('express-session')
 
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
@@ -20,6 +21,11 @@ mongoose.connection.on('connected', () => {
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, "public")))
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+}))
 
 
 // CONTROLLERS
