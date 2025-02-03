@@ -65,9 +65,18 @@ const signIn = async (req, res) => {
 
 }
 
+const signOut = (req, res) => {
+    req.session.destroy(() => {
+        res.clearCookie('connect.sid')
+        res.redirect('/')
+    })
+    
+}
+
 module.exports = {
     signUp,
     addUser,
     signInForm,
     signIn,
+    signOut,
 }
