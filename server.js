@@ -18,6 +18,7 @@ mongoose.connection.on('connected', () => {
 })
 
 // MIDDLEWARE
+app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, "public")))
 
 
@@ -28,6 +29,7 @@ const authCtrl = require('./controllers/auth')
 // ROUTE HANDLERS
 app.get('/', pagesCtrl.home)
 app.get('/auth/sign-up', authCtrl.signUp)
+app.post('/auth/sign-up', authCtrl.addUser)
 
 app.listen(port, () => {
     console.log(`The express app is ready on port ${port}`)
