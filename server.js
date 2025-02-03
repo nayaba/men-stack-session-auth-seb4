@@ -11,6 +11,7 @@ const methodOverride = require('method-override')
 const morgan = require('morgan')
 const path = require('path')
 const isSignedIn = require('./middleware/is-signed-in')
+const passUserToView = require('./middleware/pass-user-to-view')
 
 const port = process.env.PORT ? process.env.PORT : '3000'
 
@@ -37,7 +38,7 @@ app.use(session({
         secure: false,
     }
 }))
-
+app.use(passUserToView)
 
 // CONTROLLERS
 const pagesCtrl = require('./controllers/pages')
