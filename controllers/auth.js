@@ -25,8 +25,15 @@ const addUser = async (req, res) => {
     req.body.password = hashedPassword
 
     const user = await User.create(req.body)
-    console.log('new user: ', user)
-    return res.send(`Thanks for signing up ${user.username}`)
+    
+    req.session.user = {
+        username: user.username,
+    }
+    
+    req.session.save(() => {
+        res.redirect('/')
+    })
+    
 }
 
 const signInForm = (req, res) => {
