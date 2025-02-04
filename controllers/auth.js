@@ -26,9 +26,7 @@ const addUser = async (req, res) => {
 
     const user = await User.create(req.body)
     
-    req.session.user = {
-        username: user.username,
-    }
+    req.session.user = user
     
     req.session.save(() => {
         res.redirect('/')
@@ -64,7 +62,7 @@ const signIn = async (req, res) => {
     }
 
     req.session.user = userInDatabase
-    
+
     req.session.save(() => {
         res.redirect('/')
     })
